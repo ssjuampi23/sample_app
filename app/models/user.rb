@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
   has_secure_password
   
-  before_save { |user| user.email = email.downcase }
+  #before_save { |user| user.email = email.downcase } #returns a copy of the str with all lowercase letters
+  before_save { self.email.downcase! } # it becomes the e-mail insensitive so that is why the test of ht e mixed case passes
   
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

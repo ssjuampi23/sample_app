@@ -30,7 +30,7 @@ describe "Static pages" do
     page.should have_selector 'title', text: full_title('')
     #page.should have_selector 'title', text: full_title('Sample App')  ????????
   end
-  
+ 
   
   describe "Home page" do
     before { visit root_path }   
@@ -47,8 +47,8 @@ describe "Static pages" do
     let(:page_title){''}
     
     it_should_behave_like "all static pages"
-    #it { should_not have_selector 'title', text: '| Help' }  ????
-    it { should_not have_selector 'title', text: :page_title }
+    it { should have_selector 'title', text: '| Help' }  
+    #it { should_not have_selector 'title', text: :page_title }
   end
   
   
@@ -58,8 +58,8 @@ describe "Static pages" do
     let(:page_title) {'About'}
     
     it_should_behave_like "all static pages"
-    it { should_not have_selector 'title', text: :page_title }
-    #it { should_not have_selector 'title', text: '| About Us' } ??????
+    #it { should_not have_selector 'title', text: :page_title }
+    it { should have_selector 'title', text: '| About Us' } 
   end
   
   describe "Contact Page" do
@@ -68,8 +68,8 @@ describe "Static pages" do
     let(:page_title) {'Contact'}
     
     it_should_behave_like "all static pages"
-    it { should_not have_selector 'title', text: :page_title }
-    #it { should_not have_selector 'title', text: '| Contact' } ???????
+    #it { should_not have_selector 'title', text: :page_title }
+    it { should have_selector 'title', text: '| Contact' } 
   end
   
   
