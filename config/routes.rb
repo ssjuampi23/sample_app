@@ -1,6 +1,8 @@
 SampleApp::Application.routes.draw do
 
-  get "users/new"
+  #get "users/new" this line was removed and replaced with resources :users
+
+  resources :users #this makes the URI of users to work
 
   root to: 'static_pages#home'
 
@@ -11,6 +13,7 @@ SampleApp::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
 
   match '/signup', to: 'users#new'
+  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
