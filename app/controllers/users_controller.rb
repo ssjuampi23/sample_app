@@ -5,5 +5,6 @@ class UsersController < ApplicationController
   end
   
   def new
+    @user = User.new #here we creates a new user variable
   end
 end
