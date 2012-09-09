@@ -7,4 +7,15 @@ class UsersController < ApplicationController
   def new
     @user = User.new #here we creates a new user variable
   end
+  
+  def create
+    @user = User.new(params[:user]) # is equivalent to @user = User.new(name: "Foo Bar", email: "foo@invalid", password: "foo", password_confirmation: "bar")
+    if
+      @user.save
+      redirect_to @user#Handle a successful save
+    else
+      render 'new'
+    end #end if-else
+  end #end create
+  
 end
