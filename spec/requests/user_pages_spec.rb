@@ -28,6 +28,22 @@ describe "UserPages" do
      end
     end
     
+    #Exercise 2 from Chapter 7. Write tests for the error messages.
+    describe "after submission" do
+      before{ click_button submit }
+    
+      it{ should have_selector('title', text: 'Sign up') }
+      it{ should have_content('error')}
+      
+     it{ should have_content("Password can't be blank")}
+     it{ should have_content("Name can't be blank")}
+     it{ should have_content("Email can't be blank")}
+     it{ should have_content("Email is invalid")}
+     it{ should have_content("Password is too short (minimum is 6 characters)")}
+     it{ should have_content("Password confirmation can't be blank")}
+  
+    end
+    
     describe "with valid information" do
       before do
         fill_in "Name",         with: "Example User"
@@ -40,7 +56,20 @@ describe "UserPages" do
         expect{ click_button submit }.to change(User,:count).by(1)
       end
     
+      describe "after saving the user" do
+    
+      before{ click_button submit}
+      let(:user){ User.find_by_email('user@example.com') }
+
+      it{ should have_selector('title', text: user.name) }
+      it{ should have_selector('h1', text: user.name) }
+      it{ should have_selector('div.alert.alert-success', text: "Welcome to the Sample App!")}
+    end
+    
+    
     end # end valid information describe block
+    
+    
     
   end # end sign up describe block
   
