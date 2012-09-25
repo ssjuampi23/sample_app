@@ -8,6 +8,10 @@ class UsersController < ApplicationController
     @user = User.new #here we creates a new user variable
   end
   
+  def edit
+    @user = User.find(params[:id])
+  end
+  
   def create
     @user = User.new(params[:user]) # is equivalent to @user = User.new(name: "Foo Bar", email: "foo@invalid", password: "foo", password_confirmation: "bar")
     if
@@ -19,5 +23,9 @@ class UsersController < ApplicationController
       render 'new'
     end #end if-else
   end #end create
+  
+  def update
+    #@user = User.find(params[:id])
+  end # end update
   
 end
