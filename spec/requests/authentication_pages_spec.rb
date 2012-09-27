@@ -63,5 +63,44 @@ describe "Authentication" do
         end #valid information end block
       
     end #signin end block
+    
+    describe "authorization" do 
+    
+      describe "for non-signed-in users" do
+        let(:user){ FactoryGirl.create(:user) }
+      
+        describe "in the Users controller" do
+        
+          describe "visiting the edit page" do
+            before{ visit edit_user_path(user) }
+            it { should have_selector('title', text: 'Sign in') }
+          end
+          
+          describe "submitting to the update action" do
+            before { put user_path(user) } # put is used to access the controller action, is the same as visit
+            specify { response.should redirect_to(signin_path) } # access can be used in this case because the "put" request was used
+          end
+        
+        end # end of in the Users controller
+      
+      end # end of for non-signed-in users 
+      
+      describe "as wrong user" do
+        let(:user){ FactoryGirl.create(:user) }
+        let(:wrong_user){ FactoryGirl.create(:user, email: "wrong@example.com") }
+        before { sign_in user }
+        
+        describe "visiting Users#edit page" do
+          before { visit edit_user_path(wrong_user) }
+          it{ should_not have_selector('title', text: full_title('Edit User')) }
+        end
+        
+        describe "submitting a PUT request to the Users#update action"
+          before{ put user_path(wrong_user) }
+          specify { response.should redirect_to(root_path) }
+        end
+      end #end as wrong user
+    
+    end #end of authorization block
   
 end # end of the Authentication block
