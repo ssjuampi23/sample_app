@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
 
-  before_filter :signed_in_user, only: [:edit, :update]
+  before_filter :signed_in_user, only: [:index,:edit, :update]
   before_filter :correct_user, only: [:edit, :update]
+  
+  def index
+    @users = User.all # @user is a variable that i can name the way i want
+  end
   
   def show
     @user = User.find(params[:id]) # takes the id parameter from the requesting page
