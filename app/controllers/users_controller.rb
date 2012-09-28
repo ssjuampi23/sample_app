@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_filter :signed_in_user, only: [:edit, :update]
+  before_filter :correct_user, only: [:edit, :update]
   
   def show
     @user = User.find(params[:id]) # takes the id parameter from the requesting page
@@ -42,6 +43,11 @@ class UsersController < ApplicationController
   
   def signed_in_user
     redirect_to signin_url, notice: "Please sign in. " unless signed_in?
+  end
+  
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_path) unless current_user?(@user) #current_user boolean method defined in sessions_helper
   end
   
 end
