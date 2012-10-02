@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   before_filter :correct_user, only: [:edit, :update]
   
   def index
-    @users = User.all # @user is a variable that i can name the way i want
+    @users = User.paginate(page: params[:page])
+    #@users = User.all # @user is a variable that i can name the way i want
   end
   
   def show

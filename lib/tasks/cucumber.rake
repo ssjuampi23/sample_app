@@ -40,7 +40,24 @@ begin
       ::STATS_DIRECTORIES << %w(Cucumber\ features features) if File.exist?('features')
       ::CodeStatistics::TEST_TYPES << "Cucumber features" if File.exist?('features')
     end
+  end # end cucumber namespace
+  
+  #POPULATE
+  namespace :db do
+    desc "Fill database with sample data"
+    task populate: :environment do
+      User.create!(name: "Example User", email: "example@railstutorial.org", password: "foobar", password_confirmation: "foobar")
+      99.times do |n|
+        name = Faker::Name.name
+        email = "example-#{n+1}@railstutorial.org"
+        password = "password"
+        User.create!(name: name, email: email, password: password, password_confirmation: password)
+      end
+    end
   end
+  #END POPULATING
+  
+  
   desc 'Alias for cucumber:ok'
   task :cucumber => 'cucumber:ok'
 
@@ -60,6 +77,7 @@ rescue LoadError
   task :cucumber do
     abort 'Cucumber rake task is not available. Be sure to install cucumber as a gem or plugin'
   end
+  
 end
 
 end
