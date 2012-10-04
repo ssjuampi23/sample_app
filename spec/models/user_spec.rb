@@ -26,8 +26,19 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:admin) } # this will assure that the user has the admin privileges to edit and delete other users
   
   it { should be_valid } # it replaces the @user.valid? method from the rails console
+  it { should_not be_admin }
+  
+  describe "with admin attribute set to 'true' " do
+    before do
+      @user.save!
+      @user.toggle!(:admin) #toggle method flips the admin attribute from false to true
+    end
+    
+    it { should be_admin }
+  end # end describe admin attribute set to true block
   
   describe "when name is not present" do
     before { @user.name = " " }
