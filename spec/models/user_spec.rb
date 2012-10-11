@@ -147,14 +147,12 @@ describe User do
     it "should not allow access to admin" do
     
       expect do
-        @user.admin = true
-        #User.new(user_admin: user.admin)
-      end
-      #end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+      
+        User.new(admin: true)
+        
+      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end
-    
-    #it { should_not allow_mass_assignment_of :admin }
-    
+
   end
   
 end
