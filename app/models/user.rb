@@ -10,7 +10,10 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation #note that the variable 'admin' is not present in here
+  #attr_accessible :email, :name, :password, :password_confirmation #note that the variable 'admin' is not present in here
+  attr_accessible :email, :name, :password, :password_confirmation, :admin #note that the variable 'admin' is not present in here
+  #attr_accessible :email, :name, :password, :password_confirmation
+  
   has_secure_password
   
   #before_save { |user| user.email = email.downcase } #returns a copy of the str with all lowercase letters

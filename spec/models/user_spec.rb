@@ -140,4 +140,21 @@ describe User do
     its(:remember_token) { should_not be_blank } #applies the test to the given attribute rather than to the subject of the test
   end
   
+  #EXERCISES CHAPTER 9
+  
+  #in theory if I am testing that the admin attribute should not be accesible, then if I create a new user and then initialize the variable admin, that should display an error
+  describe "accesible attributes" do
+    it "should not allow access to admin" do
+    
+      expect do
+        @user.admin = true
+        #User.new(user_admin: user.admin)
+      end
+      #end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end
+    
+    #it { should_not allow_mass_assignment_of :admin }
+    
+  end
+  
 end
