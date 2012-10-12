@@ -49,8 +49,10 @@ describe "UserPages" do
     describe "with valid information" do
       #TEST
       before{ fill_user_information()}
-    
+    #before{ click_button "Sign in" }
       it "should create a user" do
+        
+        #expect{ click_button "Confirmation" }.to change(User,:count).by(1)
         expect{ click_button submit }.to change(User,:count).by(1)
       end
     
