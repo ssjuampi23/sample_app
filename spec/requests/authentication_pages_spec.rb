@@ -9,6 +9,10 @@ describe "Authentication" do
     
       it{ should have_selector_h1("Sign in")}
       it{ should have_selector_title("Sign in")}
+      
+      #EXERCISE 4 CHAPTER 9
+      let(:user){ FactoryGirl.create(:user)} 
+      after{ sign_in(user) }
    
     end #end signing page block
   
@@ -20,6 +24,11 @@ describe "Authentication" do
         
           it{ should have_selector('title', text: 'Sign in') }
           it { should have_error_message('Invalid') }
+          
+          #EXERCISE 4 CHAPTER 9
+          let(:user){ FactoryGirl.create(:user)} 
+          after{ sign_in(user) }
+          
           #it{ should have_selector('div.alert.alert-error', text:"Invalid") }
           
           describe "after visiting another page" do
@@ -75,13 +84,17 @@ describe "Authentication" do
         describe "when attempting to visit a protected page" do
           before do
             visit edit_user_path(user) # this redirects to the Sign In page
-            fill_in "Email", with: user.email
-            fill_in "Password", with: user.password
-            click_button "Sign in"
+            
+            #EXERCISE 4 CHAPTER 9 
+            sign_in(user)
+                      
+            #fill_in "Email", with: user.email
+            #fill_in "Password", with: user.password
+            #click_button "Sign in"             
           end
           
           describe "after signing in" do
-            
+          
             it "should render the desired protected page" do
               page.should have_selector('title', text: 'Edit User')
             end
@@ -104,6 +117,11 @@ describe "Authentication" do
           describe "submitting to the update action" do
             before { put user_path(user) } # put is used to access the controller action, is the same as visit
             specify { response.should redirect_to(signin_path) } # access can be used in this case because the "put" request was used
+            
+            #EXERCISE 4 CHAPTER 9 
+            let(:user){ FactoryGirl.create(:user) }
+            after { sign_in(user) }
+            
           end
         
         end # end of in the Users controller

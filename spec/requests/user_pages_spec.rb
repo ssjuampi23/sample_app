@@ -9,10 +9,6 @@ describe "UserPages" do
     it { should have_selector_h1("Sign up")}
     it { should have_selector_title("Sign up")}
   
-    #EXERCISE 4 CHAPTER 9
-    let(:user){ FactoryGirl.create(:user)} 
-    after{ sign_in(user) }
-  
   end
   
   describe "profile page" do
