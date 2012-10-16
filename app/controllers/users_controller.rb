@@ -19,25 +19,60 @@ class UsersController < ApplicationController
     @user = User.find(params[:id]) # takes the id parameter from the requesting page
   end
   
+ #EXERCISE 6 CHAPTER 9 
+ 
   def new
     @user = User.new #here we creates a new user variable
+    
+    if signed_in?
+    redirect_to(root_path)
+    else
+    render 'new'
+    end
   end
   
   def edit
     @user = User.find(params[:id])
   end
   
+  
+  #EXERCISE 6 CHAPTER 9 
+  
   def create
     @user = User.new(params[:user]) # is equivalent to @user = User.new(name: "Foo Bar", email: "foo@invalid", password: "foo", password_confirmation: "bar")
-    if
-      @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!" #creates the flash variable, the content will be displayed when the user successfully signs up
-      redirect_to @user#Handle a successful save
+    
+    if signed_in?
+       redirect_to(root_path)
     else
-      render 'new'
-    end #end if-else
+      if
+        @user.save
+        sign_in @user
+        flash[:success] = "Welcome to the Sample App!" #creates the flash variable, the content will be displayed when the user successfully signs up
+        redirect_to @user#Handle a successful save
+      else
+        render 'new'
+      end
+    end
   end #end create
+  
+  
+  #visit signup_path # put is used to access the controller action, is the same as visit
+      #redirect_to(root_path) 
+  
+  #ORIGINAL
+  #def create
+    #@user = User.new(params[:user]) # is equivalent to @user = User.new(name: "Foo Bar", email: "foo@invalid", password: "foo", password_confirmation: "bar")
+   # if
+    #  @user.save
+    #  sign_in @user
+    #  flash[:success] = "Welcome to the Sample App!" #creates the flash variable, the content will be displayed when the user successfully signs up
+    #  redirect_to @user#Handle a successful save
+  #  else
+    #  render 'new'
+  #  end #end if-else
+  #end #end create
+  
+  
   
   def update
     @user = User.find(params[:id])

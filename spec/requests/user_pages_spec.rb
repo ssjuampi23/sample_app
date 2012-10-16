@@ -83,6 +83,15 @@ describe "UserPages" do
       visit edit_user_path(user)
     end
     
+    #Exercise 6 Chapter 9
+    
+    #it "should be redirected to root URL in case the user wants to access the new/create actions" do
+      
+      #visit signup_path # put is used to access the controller action, is the same as visit
+      #redirect_to(root_path) 
+      
+    #end
+    
     #before { visit edit_user_path(user)}
   
     describe "page" do
