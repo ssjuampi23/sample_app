@@ -27,6 +27,7 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) } # this will assure that the user has the admin privileges to edit and delete other users
+  it { should respond_to(:microposts) }
   
   it { should be_valid } # it replaces the @user.valid? method from the rails console
   it { should_not be_admin }
