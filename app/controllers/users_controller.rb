@@ -4,6 +4,20 @@ class UsersController < ApplicationController
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
   
+  #EXERCISE 9 CHAPTER 9 
+  
+  #def destroy
+    
+    #if current_user.admin?
+      
+    #else
+     #  User.find(params[:id]).destroy
+      # flash[:success] = "User destroyed"
+    #   redirect_to users_url  
+    #end  
+    
+  #end
+  
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User destroyed"
@@ -16,6 +30,7 @@ class UsersController < ApplicationController
   end
   
   def show
+    @accion2 = "set from show" + @accion if !@accion.nil?    
     @user = User.find(params[:id]) # takes the id parameter from the requesting page
   end
   
@@ -38,15 +53,24 @@ class UsersController < ApplicationController
   
   #EXERCISE 6 CHAPTER 9 
   
+  def exc_test
+    accion = params[:action]
+  end
+  
   def create
     @user = User.new(params[:user]) # is equivalent to @user = User.new(name: "Foo Bar", email: "foo@invalid", password: "foo", password_confirmation: "bar")
-    
+    @accion = "motivation"
     if signed_in?
        redirect_to(root_path)
     else
       if
         @user.save
         sign_in @user
+        
+        #@accion = params[:action]
+        
+        
+        
         flash[:success] = "Welcome to the Sample App!" #creates the flash variable, the content will be displayed when the user successfully signs up
         redirect_to @user#Handle a successful save
       else
@@ -54,6 +78,8 @@ class UsersController < ApplicationController
       end
     end
   end #end create
+  
+  
   
   
   #visit signup_path # put is used to access the controller action, is the same as visit

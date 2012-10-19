@@ -6,6 +6,10 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>
+  
+<!--Exercise 7 Chapter 9 -->			
+  <!-- <%= request.request_method_symbol == :get %> -->
+  
 </head>
 <body>
 	<%= render 'layouts/header' %>
@@ -15,7 +19,8 @@
 		<%end%>
 		<%= yield %>	
 		<%= render 'layouts/footer' %>
-		<%= debug(params) if Rails.env.development? %> 
-	</div>
+		<%= debug(params) if Rails.env.development? %> 	
+			
+		</div>
 </body>
 </html>

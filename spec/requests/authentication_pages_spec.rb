@@ -95,10 +95,29 @@ describe "Authentication" do
           
           describe "after signing in" do
           
-            it "should render the desired protected page" do
-              page.should have_selector('title', text: 'Edit User')
-            end
-          end
+              it "should render the desired protected page" do
+                page.should have_selector('title', text: 'Edit User')
+              end
+            
+              describe "when signing in again" do
+                before do
+                  delete signout_path
+                  visit signin_path
+                  sign_in(user)
+                  #fill_in "Email", with: user.email
+                  #fill_in "Password", with: user.password
+                  #click_button "Sign in"             
+                end
+                
+                  it "should render the default (profile) page" do
+                
+                    page.should have_selector('title', text: user.name)
+                
+                  end
+                
+              end # end when signing in again
+                       
+          end #end after signing in describe
           
         end #end of when attempting to visit a protected page
       
@@ -144,6 +163,8 @@ describe "Authentication" do
         end
       end #end as wrong user
       
+      ##
+      
       describe "as non-admin user" do
         let(:user){ FactoryGirl.create(:user) }
         let(:non_admin){ FactoryGirl.create(:user) }
@@ -157,6 +178,24 @@ describe "Authentication" do
         
       end #end as non-admin user block
       
+      ##
+      
+      #EXERCISE 9 CHAPTER 9 
+      
+      describe "as admin user" do
+        let(:admin){ FactoryGirl.create(:admin) }
+     
+        before{ sign_in admin }
+        
+        describe "submitting a DELETE request to the Users#destroy action" do
+          
+          #before { delete user_path(admin) }
+          #expect{ delete user_path(admin) }.not_to change(User,:count).by(1)
+          
+          #specify { response.should redirect_to(root_path) }
+        end
+        
+      end #end as admin user block
  
     end #end of authorization block
     

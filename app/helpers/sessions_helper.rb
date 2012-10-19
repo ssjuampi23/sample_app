@@ -3,6 +3,7 @@ module SessionsHelper
   def sign_in(user)
     cookies.permanent[:remember_token] = user.remember_token # internally implements the function that makes the cookie expiring 20 years from now
     self.current_user = user # the current_user is now accesible from both controllers and views, this will allow a better manipulation of the user's data
+   
     # self is used to make the current_user object accesible from a global point of view (controllers and views)
     #self.current_user =... this code is automatically converted to current_user=(user)
   end
@@ -29,12 +30,15 @@ module SessionsHelper
   end
   
   def redirect_back_or(default)
-    redirect_to(session[:return_to] || default) #it redirects to the desired URI if it exists, otherwise will redirect to the default URI
+    redirect_to(session[:return_to] || default)
+     #it redirects to the desired URI if it exists, otherwise will redirect to the default URI
     session.delete(:return_to) #removes the forwarding URI
   end
   
   def store_location
     session[:return_to] = request.url
   end
+  
+
   
 end
