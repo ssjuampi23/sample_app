@@ -154,6 +154,25 @@ describe User do
       end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end
 
-  end
+  end #end accesible attributes describe
+  
+  describe "microposts associations" do
+  
+    before{ @user.save }
+    
+    let!(:older_micropost)do # the let! (letbang) makes the variable come to existence immediately
+      FactoryGirl.create(:micropost, user: @user, created_at: 1.day.ago)
+    end
+    
+    let!(:newer_micropost)do # the let! (letbang) makes the variable come to existence immediately
+      FactoryGirl.create(:micropost, user: @user, created_at: 1.hour.ago)
+    end
+    
+    it "should have the right microposts in the right order" do
+      @user.microposts.should == [newer_micropost,older_micropost]
+    end
+  
+  end #end microposts associations
+  
   
 end
