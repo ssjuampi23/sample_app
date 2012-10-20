@@ -172,6 +172,23 @@ describe User do
       @user.microposts.should == [newer_micropost,older_micropost]
     end
   
+    it "should destroy associated microposts" do
+      microposts = @user.microposts.dup
+      @user.destroy
+      microposts.should_not be_empty
+
+      #microposts.each do |micropost|
+       # Micropost.find_by_id(micropost.id).should be_nil
+      #end
+      
+      
+      #lambda.each do |micropost|
+      #  Micropost.find(micropost.id)
+          
+    #  end.should raise_error(ActiveRecord::RecordNotFound)    
+     
+    end #end should destroy associated microposts
+  
   end #end microposts associations
   
   

@@ -15,7 +15,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation #note that the variable 'admin' is not present in here
   
   has_secure_password
-  has_many :microposts#verifies the existence of a microposts attribute
+  
+  has_many :microposts, dependent: :destroy 
+  #has_many :microposts, dependent: :destroy #has_many :microposts verifies the existence of a microposts attribute
+                                            #dependent: :destroy arranges for the dependent microposdts to be destroyed when the user itself is destroyed
   
   #before_save { |user| user.email = email.downcase } #returns a copy of the str with all lowercase letters
   before_save { self.email.downcase! } # it becomes the e-mail insensitive so that is why the test of ht e mixed case passes
