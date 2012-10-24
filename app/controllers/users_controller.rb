@@ -30,8 +30,9 @@ class UsersController < ApplicationController
   end
   
   def show
-    @accion2 = "set from show" + @accion if !@accion.nil?    
+    #@accion2 = "set from show" + @accion if !@accion.nil?    
     @user = User.find(params[:id]) # takes the id parameter from the requesting page
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
   
  #EXERCISE 6 CHAPTER 9 
