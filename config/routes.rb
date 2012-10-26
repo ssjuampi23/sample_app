@@ -4,6 +4,7 @@ SampleApp::Application.routes.draw do
 
   resources :users #this makes the URI of users to work
   resources :sessions, only: [:new, :create, :destroy] #these are the standard RESTful actions for Sessions
+  resources :microposts, only: [:create, :destroy]#these are the standard RESTful actions for Microposts
 
   root to: 'static_pages#home'
 
