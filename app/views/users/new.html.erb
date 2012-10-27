@@ -5,8 +5,10 @@
 	<div class="span6 offset3">
 		<%= form_for(@user) do |f| %>
 		
-			<%= render 'fields', f: f %>
-	
+			<!--<%= render 'fields', f: f %>-->
+			
+			<%= render 'shared/error_messages', object: f.object%>
+			
 			<!--Pay attention with this code at the moment of checking the tests 
 			<%= f.label :password_confirmation, "Confirmation"%>	
 			-->

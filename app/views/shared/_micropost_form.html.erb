@@ -1,12 +1,10 @@
-<a href="<%=  user_path(current_user) %>">
-	<%= gravatar_for current_user, size: 52%>	
-</a>
-<h1>
-	<%= current_user.name%>
-</h1>
-<span>
-	<%= link_to "view my profile", current_user %>
-</span>
-<span>
-	<%= pluralize(current_user.microposts.count, "micropost")%>
-</span>
+<%= form_for(@micropost) do |f|%>
+
+	<%= render 'shared/error_messages', object: f.object%> <!--Here we are calling the partials located in the /shared location -->
+
+	<div class="field">
+		<%= f.text_area :content, placeholder: "Compose new micropost..."%>
+	</div>
+	<%= f.submit "Post", class: "btn btn-large btn-primary"%>
+	
+<% end %>

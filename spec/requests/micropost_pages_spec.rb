@@ -9,7 +9,7 @@ describe "MicropostPages" do
   
   describe "micropost creation" do
   
-    before{visit root_path}
+    before { visit root_path }
     
     describe "with invalid information" do
     
