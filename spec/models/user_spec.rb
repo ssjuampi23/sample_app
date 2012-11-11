@@ -28,6 +28,7 @@ describe User do
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) } # this will assure that the user has the admin privileges to edit and delete other users
   it { should respond_to(:microposts) }
+  it { should respond_to(:feed)} # here we are telling to the user model that a variable named feed exists 
   
   it { should be_valid } # it replaces the @user.valid? method from the rails console
   it { should_not be_admin }
@@ -188,6 +189,18 @@ describe User do
     #  end.should raise_error(ActiveRecord::RecordNotFound)    
      
     end #end should destroy associated microposts
+    
+    describe "status" do
+    
+      let(:unfollowed_post) do
+        FactoryGirl.create(:micropost,user:FactoryGirl.create(:user))
+      end
+      
+      its(:feed){ should include(newer_micropost) }
+      its(:feed){ should include(older_micropost)}
+      its(:feed){ should_not include(unfollowed_post)}
+    
+    end # end status
   
   end #end microposts associations
   
