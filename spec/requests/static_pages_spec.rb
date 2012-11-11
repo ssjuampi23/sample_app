@@ -53,7 +53,7 @@ describe "Static pages" do
       it "should render the user's feed" do
         
         user.feed.each do |item|
-          page.should have_selector("li# #{item.id}", text: item.content) # li# this is capybara syntax for a CSS id
+          page.should have_selector("li##{item.id}", text: item.content) # li# this is capybara syntax for a CSS id
         end  
       
       end #end should render the user's feed

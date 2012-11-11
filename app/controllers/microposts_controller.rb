@@ -8,6 +8,7 @@ class MicropostsController < ApplicationController
     flash[:success] = "Micropost created!"
     redirect_to root_url
   else
+    @feed_items = [] #this solvs the problem with the failing spec tests that were failing because failed submissions were not properly handled
     render 'static_pages/home'
   end
  end
