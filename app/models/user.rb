@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
   has_secure_password
   
   has_many :microposts, dependent: :destroy 
+  
+  #CHAPTER 11
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  
   #has_many :microposts, dependent: :destroy #has_many :microposts verifies the existence of a microposts attribute
                                             #dependent: :destroy arranges for the dependent microposdts to be destroyed when the user itself is destroyed
   
