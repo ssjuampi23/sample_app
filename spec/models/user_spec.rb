@@ -31,7 +31,9 @@ describe User do
   it { should respond_to(:feed)} # here we are telling to the user model that a variable named feed exists 
   #CHAPTER 11
   it { should respond_to(:relationships)} 
+  it { should respond_to(:reverse_relationships)} 
   it { should respond_to(:followed_users}
+  it { should respond_to(:followers}
   it { should respond_to(:following?}
   it { should respond_to(:follow!}
   
@@ -220,6 +222,11 @@ describe User do
     
     it { should be_following(other_user) }
     its(:followed_users) { should include(:other_user)}
+  
+    describe "followed user" do
+      subject { other_user }
+      its(:followers){ should include(@user) }
+    end #end followed user describe
   
     describe "and unfollowing" do
     
