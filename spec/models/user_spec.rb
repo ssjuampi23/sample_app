@@ -31,6 +31,9 @@ describe User do
   it { should respond_to(:feed)} # here we are telling to the user model that a variable named feed exists 
   #CHAPTER 11
   it { should respond_to(:relationships)} 
+  it { should respond_to(:followed_users}
+  it { should respond_to(:following?}
+  it { should respond_to(:follow!}
   
   it { should be_valid } # it replaces the @user.valid? method from the rails console
   it { should_not be_admin }
@@ -206,5 +209,26 @@ describe User do
   
   end #end microposts associations
   
+  describe "following" do
+  
+    let(:other_user){ FactoryGirl.create(:user)}
+    before do
+      @user.save
+      @user.follow!(other_user) #the follow! method calls create! to create the following relationship
+      #the follow! method was created in the app/models/user.rb
+    end
+    
+    it { should be_following(other_user) }
+    its(:followed_users) { should include(:other_user)}
+  
+    describe "and unfollowing" do
+    
+      before { @user.unfollow!(other_user) }
+      
+      it { should_not be_following(other_user) }
+      its(:followed_users) { should_not include(:other_user)}
+    end #end and unfollowing describe
+  
+  end #end following describe
   
 end

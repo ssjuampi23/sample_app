@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   
   #CHAPTER 11
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
-  
+  has_many :followed_users, through: relationships, source: :followed
   #has_many :microposts, dependent: :destroy #has_many :microposts verifies the existence of a microposts attribute
                                             #dependent: :destroy arranges for the dependent microposdts to be destroyed when the user itself is destroyed
   
@@ -37,6 +37,18 @@ class User < ActiveRecord::Base
   def feed
     #This is preliminary. See "Following users" for the full implementation.
     Micropost.where("user_id = ?", id)
+  end
+  
+  def following?(other_user)
+    relationships.find_by_followed_id(other_user.id)
+  end
+  
+  def follow!(other_user)
+    relationships.create!(followed_id: other_user.id)
+  end
+  
+  def unfollow!(other_user)
+    relationships.find_by_followed_id(other_user.id).destroy
   end
   
   private 
