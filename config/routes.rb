@@ -2,7 +2,14 @@ SampleApp::Application.routes.draw do
 
   #get "users/new" this line was removed and replaced with resources :users
 
-  resources :users #this makes the URI of users to work
+  #resources :users #this makes the URI of users to work
+  
+  resources :users do
+    member do #member means that the routes respond to URIs containing the user id
+      get :following, :followers
+    end
+  end  
+  
   resources :sessions, only: [:new, :create, :destroy] #these are the standard RESTful actions for Sessions
   resources :microposts, only: [:create, :destroy]#these are the standard RESTful actions for Microposts
 
