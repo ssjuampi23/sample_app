@@ -12,6 +12,7 @@ SampleApp::Application.routes.draw do
   
   resources :sessions, only: [:new, :create, :destroy] #these are the standard RESTful actions for Sessions
   resources :microposts, only: [:create, :destroy]#these are the standard RESTful actions for Microposts
+  resources :relationships, only: [:create, :destroy]#these are the standard RESTful actions for Relationships
 
   root to: 'static_pages#home'
 
