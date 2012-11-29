@@ -149,6 +149,16 @@ describe "Authentication" do
             it { should have_selector('title', text: 'Sign in') }
           end
           
+          describe "visiting the following page" do
+            before { visit following_user_path(user) }
+            it { should have_selector('title', 'Sign in') }
+          end
+          
+          describe "visiting the followers page" do
+            before { visit followers_user_path(user) }
+            it { should have_selector('title', 'Sign in') }
+          end #This is a simple test for authorization when a user is trying to visit a page and needs to be signed in first
+          
           describe "submitting to the update action" do
             before { put user_path(user) } # put is used to access the controller action, is the same as visit
             specify { response.should redirect_to(signin_path) } # access can be used in this case because the "put" request was used
