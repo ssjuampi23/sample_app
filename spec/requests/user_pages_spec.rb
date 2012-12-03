@@ -17,7 +17,64 @@ describe "UserPages" do
     
     it { should have_selector_h1(user.name)}
     it { should have_selector_title(user.name)}
-  end
+    
+    describe "follow/unfollow buttons" do
+    
+    let(:other_user){ FactoryGirl.create(:user) }
+    before { sign_in user } #sign_in user is declared on sessions_helper
+    
+      describe "following an user" do
+      
+        before { visit user_path(other_user) }
+        
+        it "should increment the followed user count" do
+          expect do
+            click_button "Follow"
+          end.to change(user.followed_users, :count).by(1)
+        end
+        
+        it "should increment the other user's followers count" do
+          expect do
+            click_button "Follow"
+          end.to change(other_user.followers,:count).by(1)
+        end
+        
+        describe "toogling the button" do
+            before { click_button "Follow" }
+            it{ should have_selector('input',value: "Unfollow")}
+        end #toogling the button
+        
+      end #following an user
+      
+      describe "unfollowing an user" do
+    
+        before do
+          user.follow!(other_user)
+          visit user_path(other_user)
+        end
+        
+        it "should decrement the followed user count" do
+          expect do
+            click_button "Unfollow"
+          end.to change(user.followed_users, :count).by(-1)
+        end
+        
+        it "should decrement the other user's followers count" do
+          expect do
+            click_button "Unfollow"
+          end.to change(other_user.followers, :count).by(-1)
+        end
+        
+        describe "toogling the button" do
+            before { click_button "Unfollow" }
+            it{ should have_selector('input',value: "Follow")}
+        end #toogling the button
+    
+      end #unfollowing an user
+    
+    end #follow/unfollow buttons
+    
+  end # profile page
   
   describe "following/followers" do
   

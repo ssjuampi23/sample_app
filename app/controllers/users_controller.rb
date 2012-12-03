@@ -17,21 +17,7 @@ class UsersController < ApplicationController
     #end  
     
   #end
-  
-  def following
-    @title = "Following"
-    @user = User.find(params[:id])
-    @users = @user.followed_users.paginate(page: params[:page])
-    render 'show_follow' #the show_follow does not exist currently, therefore we must create it
-  end
-  
-  def followers
-    @title = "Followers"
-    @user = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
-    render 'show_follow'
-  end
-  
+ 
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User destroyed"
@@ -126,6 +112,20 @@ class UsersController < ApplicationController
       render 'edit'
     end # end else
   end # end update
+  
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+    render 'show_follow' #the show_follow does not exist currently, therefore we must create it
+end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
   
   private
   

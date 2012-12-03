@@ -81,7 +81,20 @@ describe "Authentication" do
       describe "for non-signed-in users" do
         let(:user){ FactoryGirl.create(:user) }
       
-      
+        describe "in the Relationships controller" do
+        
+          describe "submitting to the create action" do
+            before { post relationships_path }
+            specify { response.should redirect_to(signin_path) }
+          end
+          
+          describe "submitting to the destroy action" do
+            before { delete relationships_path(1) }
+            specify { response.should redirect_to(signin_path) }
+          end
+          
+        end #in the Relationships controller
+              
         describe "in the Microposts controller" do
         
           describe "submitting to the create action" do
@@ -148,17 +161,7 @@ describe "Authentication" do
             before{ visit edit_user_path(user) }
             it { should have_selector('title', text: 'Sign in') }
           end
-          
-          describe "visiting the following page" do
-            before { visit following_user_path(user) }
-            it { should have_selector('title', 'Sign in') }
-          end
-          
-          describe "visiting the followers page" do
-            before { visit followers_user_path(user) }
-            it { should have_selector('title', 'Sign in') }
-          end #This is a simple test for authorization when a user is trying to visit a page and needs to be signed in first
-          
+                  
           describe "submitting to the update action" do
             before { put user_path(user) } # put is used to access the controller action, is the same as visit
             specify { response.should redirect_to(signin_path) } # access can be used in this case because the "put" request was used
@@ -168,6 +171,16 @@ describe "Authentication" do
             after { sign_in(user) }
             
           end
+          
+           describe "visiting the following page" do
+            before { visit following_user_path(user) }
+            it { should have_selector('title', 'Sign in') }
+          end
+          
+          describe "visiting the followers page" do
+            before { visit followers_user_path(user) }
+            it { should have_selector('title', 'Sign in') }
+          end #This is a simple test for authorization when a user is trying to visit a page and needs to be signed in first
         
         end # end of in the Users controller
       
